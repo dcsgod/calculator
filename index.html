@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      width: 300px;
+      background: #ffffff;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .display {
+      width: 100%;
+      height: 50px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      text-align: right;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .button {
+      padding: 15px;
+      font-size: 1rem;
+      text-align: center;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      transition: background 0.2s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .button.scientific {
+      background-color: #28a745;
+    }
+
+    .button.scientific:hover {
+      background-color: #1e7e34;
+    }
+
+    .button.clear {
+      background-color: #dc3545;
+    }
+
+    .button.clear:hover {
+      background-color: #a71d2a;
+    }
+
+    .button.equal {
+      background-color: #ffc107;
+      grid-column: span 2;
+    }
+
+    .button.equal:hover {
+      background-color: #d39e00;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" class="display" disabled>
+    <div class="buttons">
+      <!-- Number buttons -->
+      <button class="button" onclick="appendNumber('7')">7</button>
+      <button class="button" onclick="appendNumber('8')">8</button>
+      <button class="button" onclick="appendNumber('9')">9</button>
+      <button class="button" onclick="setOperator('/')">÷</button>
+
+      <button class="button" onclick="appendNumber('4')">4</button>
+      <button class="button" onclick="appendNumber('5')">5</button>
+      <button class="button" onclick="appendNumber('6')">6</button>
+      <button class="button" onclick="setOperator('*')">×</button>
+
+      <button class="button" onclick="appendNumber('1')">1</button>
+      <button class="button" onclick="appendNumber('2')">2</button>
+      <button class="button" onclick="appendNumber('3')">3</button>
+      <button class="button" onclick="setOperator('-')">−</button>
+
+      <button class="button" onclick="appendNumber('0')">0</button>
+      <button class="button" onclick="appendNumber('.')">.</button>
+      <button class="button equal" onclick="calculate()">=</button>
+      <button class="button" onclick="setOperator('+')">+</button>
+
+      <!-- Scientific functions -->
+      <button class="button scientific" onclick="scientific('sin')">sin</button>
+      <button class="button scientific" onclick="scientific('cos')">cos</button>
+      <button class="button scientific" onclick="scientific('tan')">tan</button>
+      <button class="button scientific" onclick="scientific('sqrt')">√</button>
+      <button class="button scientific" onclick="scientific('log')">log</button>
+      
+      <button class="button clear" onclick="clearDisplay()">C</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+    let currentInput = '';
+    let operator = '';
+    let firstOperand = null;
+
+    function appendNumber(number) {
+      currentInput += number;
+      display.value = currentInput;
+    }
+
+    function setOperator(op) {
+      if (currentInput !== '') {
+        firstOperand = parseFloat(currentInput);
+        currentInput = '';
+        operator = op;
+        display.value = '';
+      }
+    }
+
+    function calculate() {
+      if (firstOperand !== null && currentInput !== '') {
+        let secondOperand = parseFloat(currentInput);
+        let result;
+        switch (operator) {
+          case '+':
+            result = firstOperand + secondOperand;
+            break;
+          case '-':
+            result = firstOperand - secondOperand;
+            break;
+          case '*':
+            result = firstOperand * secondOperand;
+            break;
+          case '/':
+            result = firstOperand / secondOperand;
+            break;
+          default:
+            return;
+        }
+        display.value = result;
+        currentInput = '';
+        firstOperand = null;
+        operator = '';
+      }
+    }
+
+    function scientific(func) {
+      if (currentInput !== '') {
+        let num = parseFloat(currentInput);
+        let result;
+        switch (func) {
+          case 'sin':
+            result = Math.sin((num * Math.PI) / 180);
+            break;
+          case 'cos':
+            result = Math.cos((num * Math.PI) / 180);
+            break;
+          case 'tan':
+            result = Math.tan((num * Math.PI) / 180);
+            break;
+          case 'sqrt':
+            result = Math.sqrt(num);
+            break;
+          case 'log':
+            result = Math.log10(num);
+            break;
+          default:
+            return;
+        }
+        display.value = result;
+        currentInput = '';
+      }
+    }
+
+    function clearDisplay() {
+      currentInput = '';
+      firstOperand = null;
+      operator = '';
+      display.value = '';
+    }
+  </script>
+</body>
+</html>
