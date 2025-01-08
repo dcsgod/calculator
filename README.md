@@ -17,7 +17,7 @@ A desktop-based **Scientific Calculator** application built using **Java Swing**
 
 ## Screenshots
 
-![Scientific Calculator Screenshot](https://via.placeholder.com/600x400?text=Screenshot+Placeholder)
+![Scientific Calculator Screenshot](https://github.com/dcsgod/Scientificcalculator/blob/main/Calc.png)
 
 ---
 
@@ -29,4 +29,4 @@ A desktop-based **Scientific Calculator** application built using **Java Swing**
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ScientificCalculator.git
+   git clone https://github.com/dcsdod/ScientificCalculator.git
